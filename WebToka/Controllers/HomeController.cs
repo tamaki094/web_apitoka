@@ -20,7 +20,7 @@ namespace WebToka.Controllers
 
             var personas = JsonConvert.DeserializeObject<List<PersonaFisica>>(json);
 
-            var cantidadregistrosporpagina = 10;
+            var cantidadregistrosporpagina = 2;
 
             var personas_mostrar = personas.OrderBy(x => x.IdPersonaFisica)
                 .Skip((pagina - 1) * cantidadregistrosporpagina) //luego de saltar registros
@@ -28,8 +28,10 @@ namespace WebToka.Controllers
 
             var totalRegistros = personas.Count();
 
+
+
             var modelo = new IndexViewModel();
-            modelo.PersonasFisicas = personas;
+            modelo.PersonasFisicas = personas_mostrar;
             modelo.PaginaActual = pagina;
             modelo.TotalRegistros = totalRegistros;
             modelo.RegistroPorPagina = cantidadregistrosporpagina;

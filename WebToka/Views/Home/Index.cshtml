@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Home Page";
+    var cantidadPaginas = (int)Math.Ceiling((double)Model.TotalRegistros / Model.RegistroPorPagina);
 }
 
 <div class="row">
@@ -27,5 +28,25 @@
                </tr>
            </tbody>
        </table>
+
+       <ul class="pagination">
+           @if (Model.PaginaActual == 1)
+           {
+               <li class="disabled">@Html.ActionLink("Anteiror", null, new { pagina = 1 })</li>
+           }
+           else
+           {
+               <li>@Html.ActionLink("Anteiror", null, new { pagina = (Model.PaginaActual - 1) })</li>
+           }
+
+           @if (Model.PaginaActual == cantidadPaginas)
+           {
+               <li class="disabled">@Html.ActionLink("Siguiente", null, new { pagina = 1 })</li>
+           }
+           else
+           {
+               <li>@Html.ActionLink("Siguiente", null, new { pagina = (Model.PaginaActual + 1) })</li>
+           }
+       </ul>
     </div>
 </div>

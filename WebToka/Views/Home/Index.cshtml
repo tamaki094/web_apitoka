@@ -1,0 +1,31 @@
+﻿@model WebToka.Models.IndexViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+       <table class="table table-striped">
+           <thead>
+               <tr>
+                   <th>Id</th>
+                   <th>Nombre</th>
+               </tr>          
+           </thead>
+           <tbody>
+               @foreach(var persona in Model.PersonasFisicas)
+               {
+               <tr>
+                   <td>@persona.IdPersonaFisica</td>
+                   <td>@persona.Nombre</td>
+               </tr>
+                }
+               <tr>
+                   <td></td>
+                   <td></td>
+               </tr>
+           </tbody>
+       </table>
+    </div>
+</div>

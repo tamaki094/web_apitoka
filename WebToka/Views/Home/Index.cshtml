@@ -8,87 +8,122 @@
 <div class="row">
     <div class="col-md-12">
         <p>Registros por pagina: @Model.RegistroPorPagina </p>
-        <a href="@Url.Action("CrearPersonaFisica", "Home")" class="btn btn-primary">Crear</a>
-       <table class="table table-striped">
-           <thead>
-               <tr>
-                   <th>Id</th>
-                   <th>Fecha Registro</th>
-                   <th>Fecha Actualizacion</th>
-                   <th>Nombre</th>
-                   <th>Apellido Paterno</th>
-                   <th>Apellido Materno</th>
-                   <th>RFC</th>
-                   <th>Fecha Nacimiento</th>
-                   <th>Acciones</th>
-               </tr>          
-           </thead>
-           <tbody>
-               @foreach(var persona in Model.PersonasFisicas)
-               {
-               <tr>
-                   <td>@persona.IdPersonaFisica</td>
-                   <td>@persona.FechaRegistro</td>
-                   <td>@persona.FechaActualizacion</td>
-                   <td>@persona.Nombre</td>
-                   <td>@persona.ApellidoPaterno</td>
-                   <td>@persona.ApellidoMaterno</td>
-                   <td>@persona.RFC</td>
-                   <td>@persona.FechaNacimiento</td>
-                   <td>
-                       <a href="@Url.Action("putPersona", "Home", new { idPersonaFisica = persona.IdPersonaFisica })" class="btn btn-primary">
-                           <i class="fas fa-edit"></i>
-                           <span>
-                               <strong>Editar</strong>
-                           </span>
-                       </a>
-                       @if (persona.Activo == true)
-                       {
-                           <a href="@Url.Action("deletePersona", "Home", new { idPersonaFisica = persona.IdPersonaFisica, Activar = false })" class="btn btn-danger">
-                               <i class="fas fa-trash"></i>
-                               <span>
-                                   <strong>Borrar</strong>
-                               </span>
-                           </a>
-                       }
-                       else
-                       {
-                           <a href="@Url.Action("deletePersona", "Home", new { idPersonaFisica = persona.IdPersonaFisica, Activar = true  })" class="btn btn-success">
-                               <i class="fas fa-clipboard-check"></i>
-                               <span>
-                                   <strong>Activar</strong>
-                               </span>
-                           </a>
-                       }
+        <a href="@Url.Action("CrearPersonaFisica", "Home")" class="btn btn-primary">Crear <i class="fas fa-plus-square"></i></a>
+        <button class="btn btn-success" type="button" value="Exportar excel" id="btnExcel">Exportar Excel <i class="fas fa-file-excel"></i></button>
+        <table class="table table-striped" id="tabla_resultados">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Fecha Registro</th>
+                    <th>Fecha Actualizacion</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>RFC</th>
+                    <th>Fecha Nacimiento</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var persona in Model.PersonasFisicas)
+                {
+                    <tr>
+                        <td>@persona.IdPersonaFisica</td>
+                        <td>@persona.FechaRegistro</td>
+                        <td>@persona.FechaActualizacion</td>
+                        <td>@persona.Nombre</td>
+                        <td>@persona.ApellidoPaterno</td>
+                        <td>@persona.ApellidoMaterno</td>
+                        <td>@persona.RFC</td>
+                        <td>@persona.FechaNacimiento</td>
+                        <td>
+                            <a href="@Url.Action("putPersona", "Home", new { idPersonaFisica = persona.IdPersonaFisica })" class="btn btn-primary">
+                                <i class="fas fa-edit"></i>
+                                <span>
+                                    <strong>Editar</strong>
+                                </span>
+                            </a>
+                            @if (persona.Activo == true)
+                            {
+                                <a href="@Url.Action("deletePersona", "Home", new { idPersonaFisica = persona.IdPersonaFisica, Activar = false })" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                    <span>
+                                        <strong>Borrar</strong>
+                                    </span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("deletePersona", "Home", new { idPersonaFisica = persona.IdPersonaFisica, Activar = true  })" class="btn btn-success">
+                                    <i class="fas fa-clipboard-check"></i>
+                                    <span>
+                                        <strong>Activar</strong>
+                                    </span>
+                                </a>
+                            }
 
-                   </td>
-               </tr>
+                        </td>
+                    </tr>
                 }
-               <tr>
-                   <td></td>
-                   <td></td>
-               </tr>
-           </tbody>
-       </table>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
 
-       <ul class="pagination">
-           @if (Model.PaginaActual == 1)
-           {
-               <li class="disabled">@Html.ActionLink("Anteiror", null, new { pagina = 1 })</li>
-           }
-           else
-           {
-               <li>@Html.ActionLink("Anteiror", null, new { pagina = (Model.PaginaActual - 1) })</li>
-           }
+        <ul class="pagination">
+            @if (Model.PaginaActual == 1)
+            {
+                <li class="disabled">@Html.ActionLink("Anteiror", null, new { pagina = 1 })</li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Anteiror", null, new { pagina = (Model.PaginaActual - 1) })</li>
+            }
 
-           @if (Model.PaginaActual == cantidadPaginas)
-           {
-               <li class="disabled">@Html.ActionLink("Siguiente", null, new { pagina = 1 })</li>
-           }
-           else
-           {
-               <li>@Html.ActionLink("Siguiente", null, new { pagina = (Model.PaginaActual + 1) })</li>
-           }
-       </ul>
+            @if (Model.PaginaActual == cantidadPaginas)
+            {
+                <li class="disabled">@Html.ActionLink("Siguiente", null, new { pagina = 1 })</li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Siguiente", null, new { pagina = (Model.PaginaActual + 1) })</li>
+            }
+        </ul>
     </div>
 </div>
+
+<script>
+    $("#btnExcel").click(function (e) {
+        var downloadLink;
+        var dataType = 'application/vnd.ms-excel';
+        var tableSelect = document.getElementById("tabla_resultados");
+        var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+        // Specify file name
+        var filename = filename ? filename + '.xls' : 'excel_data.xls';
+
+        // Create download link element
+        downloadLink = document.createElement("a");
+
+        document.body.appendChild(downloadLink);
+
+        if (navigator.msSaveOrOpenBlob) {
+            var blob = new Blob(['\ufeff', tableHTML], {
+                type: dataType
+            });
+            navigator.msSaveOrOpenBlob(blob, filename);
+        } else {
+            // Create a link to the file
+            downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+
+            // Setting the file name
+            downloadLink.download = filename;
+
+            //triggering the function
+            downloadLink.click();
+        }
+
+    });
+</script>

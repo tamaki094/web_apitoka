@@ -12,6 +12,9 @@ using System.Net.Http.Json;
 using System.IO;
 using System.Globalization;
 using Newtonsoft.Json.Linq;
+using NsExcel = Microsoft.Office.Interop.Excel;
+using ClosedXML.Excel;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebToka.Controllers
 {
@@ -44,7 +47,7 @@ namespace WebToka.Controllers
             modelo.RegistroPorPagina = cantidadregistrosporpagina;
 
 
-            return View("Index",modelo);
+            return View("Index", modelo);
         }
 
         public ActionResult About()
@@ -69,7 +72,7 @@ namespace WebToka.Controllers
         {
             var path = Request.QueryString;
             string accion = "";
-            if(path.Count >= 1)
+            if (path.Count >= 1)
             {
                 var idPersonaFisica = Request["idPersonaFisica"];
                 var httpClient = new HttpClient();
@@ -107,7 +110,7 @@ namespace WebToka.Controllers
                         FechaNacimiento = fecha_nac,
                         RFC = rfc,
                         UsuarioAgrega = 1,
-                        Activo= true
+                        Activo = true
                     };
 
                     using (var httpClinte = new HttpClient())
@@ -134,7 +137,7 @@ namespace WebToka.Controllers
                     string fechan = Request.Params["txtFechaNac"];
                     DateTime fecha_nac = Convert.ToDateTime(fechan);
                     string rfc = Request.Params["txtRfc"];
-                    
+
                     persona = new PersonaFisica()
                     {
                         Nombre = nombre,
@@ -158,8 +161,8 @@ namespace WebToka.Controllers
                         }
                     }
                     return View("CrearPersonaFisica");
-                }                          
-            }         
+                }
+            }
         }
 
 
@@ -192,6 +195,9 @@ namespace WebToka.Controllers
         {
             return View();
         }
+
+       
     }
 
+    
 }

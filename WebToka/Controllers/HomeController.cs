@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WebToka.Models;
+using System.Net.Http.Json;
 
 namespace WebToka.Controllers
 {
@@ -56,6 +57,14 @@ namespace WebToka.Controllers
 
         public ActionResult Create()
         {
+            return View();
+        }
+
+        public ActionResult putPersona()
+        {
+            string url = "http://localhost:8080/api/personafisica";
+            Console.WriteLine(Request.Params);
+
             return View();
         }
 

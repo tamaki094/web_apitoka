@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <form>
+        <form method="post" action="putPersona" id="fmPut">
             <div class="form-group">
                 <label for="txtNombre">Nombre</label>
                 <input type="text" class="form-control" id="txtNombre" name="txtNombre" placeholder="Nombres">
@@ -35,7 +35,29 @@
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="submit" class="btn btn-primary" id="btnEnviar">Enviar</button>
         </form>
     </div>
 </div>
+
+<script>
+    //$(document).ready(function () {
+    //    $("#btnEnviar").click(function (e) {
+    //        e.preventDefault();
+    //        alert("enviar");
+
+    //        $.ajax({
+    //            type: "POST",
+    //            url: "putPersona",
+    //            data: $("#frmPut").serializeArray(),
+    //            success: function (datos) {
+    //                console.log($("#frmPut").serializeArray());
+    //            },
+    //            dataType: 'json'
+    //        })
+
+    //    });
+    //});
+
+    
+</script>

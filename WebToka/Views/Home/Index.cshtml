@@ -36,18 +36,31 @@
                    <td>@persona.RFC</td>
                    <td>@persona.FechaNacimiento</td>
                    <td>
-                       <a href="@Url.Action("Edit", "Home")" class="btn btn-primary">
+                       <a href="@Url.Action("putPersona", "Home", new { idPersonaFisica = persona.IdPersonaFisica })" class="btn btn-primary">
                            <i class="fas fa-edit"></i>
                            <span>
                                <strong>Editar</strong>
                            </span>
-                       </a> 
-                       <a href="@Url.Action("Delete", "Home")" class="btn btn-danger">
-                           <i class="fas fa-trash"></i>
-                           <span>
-                               <strong>Borrar</strong>
-                           </span>
                        </a>
+                       @if (persona.Activo == true)
+                       {
+                           <a href="@Url.Action("deletePersona", "Home", new { idPersonaFisica = persona.IdPersonaFisica, Activar = false })" class="btn btn-danger">
+                               <i class="fas fa-trash"></i>
+                               <span>
+                                   <strong>Borrar</strong>
+                               </span>
+                           </a>
+                       }
+                       else
+                       {
+                           <a href="@Url.Action("deletePersona", "Home", new { idPersonaFisica = persona.IdPersonaFisica, Activar = true  })" class="btn btn-success">
+                               <i class="fas fa-clipboard-check"></i>
+                               <span>
+                                   <strong>Activar</strong>
+                               </span>
+                           </a>
+                       }
+
                    </td>
                </tr>
                 }

@@ -1,7 +1,30 @@
 ﻿
+@model WebToka.Models.IndexViewModel
+
 @{
     ViewBag.Title = "Agregar Persona Fisica";
+    var mensaje = ViewData["Mensaje"];
 }
+@if (mensaje != null)
+{
+    if (!string.IsNullOrEmpty(mensaje.ToString()))
+    {
+        <script>
+            var icono = "success"; 
+            var header = "Good Job!";
+            var codigo = @ViewData["Codigo"];
+            if (codigo <= 0)
+            {
+                icono = "error";
+                header = "Bad Job!";
+            }
+            alert(codigo);
+            swal(header.toString(), "@mensaje", icono.toString());
+        </script>
+    }
+}
+
+
 
 <div class="row">
     <div class="col-md-12">
@@ -11,7 +34,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <form method="post" action="putPersona" id="fmPut">
+        <form method="post" id="frmPut" action="putPersona">
             <div class="form-group">
                 <label for="txtNombre">Nombre</label>
                 <input type="text" class="form-control" id="txtNombre" name="txtNombre" placeholder="Nombres">
@@ -31,10 +54,10 @@
                 <input type="date" class="form-control" id="txtFechaNac" name="txtFechaNac" placeholder="Fecha Nacimiento">
             </div>
 
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
+            <div class="form-group">
+                <label for="txtRfc">RFC</label>
+                <input type="text" class="form-control" id="txtRfc" name="txtRfc" placeholder="RFC">
+            </div>       
             <button type="submit" class="btn btn-primary" id="btnEnviar">Enviar</button>
         </form>
     </div>
@@ -42,16 +65,17 @@
 
 <script>
     //$(document).ready(function () {
-    //    $("#btnEnviar").click(function (e) {
+    //    alert("a");
+    //    $("form#frmPut").submit(function (e) {
     //        e.preventDefault();
-    //        alert("enviar");
-
+    //        var a = JSON.stringify($("form#frmPut").serializeArray());
+    //        console.log(a);
     //        $.ajax({
     //            type: "POST",
     //            url: "putPersona",
     //            data: $("#frmPut").serializeArray(),
     //            success: function (datos) {
-    //                console.log($("#frmPut").serializeArray());
+    //                console.log($("#frmPut").serializeJSON());
     //            },
     //            dataType: 'json'
     //        })
@@ -59,5 +83,5 @@
     //    });
     //});
 
-    
+
 </script>

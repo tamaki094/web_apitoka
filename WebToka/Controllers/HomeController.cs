@@ -9,11 +9,16 @@ using System.Web;
 using System.Web.Mvc;
 using WebToka.Models;
 using System.Net.Http.Json;
+using System.IO;
+using System.Globalization;
+using Newtonsoft.Json.Linq;
 
 namespace WebToka.Controllers
 {
     public class HomeController : Controller
     {
+        string base_url = "http://localhost:8080/";
+
         public async Task<ActionResult> Index(int pagina = 1)
         {
             var httpClient = new HttpClient();
@@ -60,12 +65,40 @@ namespace WebToka.Controllers
             return View();
         }
 
-        public ActionResult putPersona()
+        public async Task<ActionResult> putPersona()
         {
-            string url = "http://localhost:8080/api/personafisica";
+            
             Console.WriteLine(Request.Params);
 
-            return View();
+            string nombre = Request.Params["txtNombre"];
+            string apellidop = Request.Params["txtApellidoP"];
+            string apellidom = Request.Params["txtApellidoM"];
+            string fechan = Request.Params["txtFechaNac"];
+            DateTime fecha_nac = Convert.ToDateTime(fechan);
+            string rfc = Request.Params["txtRfc"];
+
+            PersonaFisica persona = new PersonaFisica()
+            {
+                Nombre = nombre,
+                ApellidoPaterno = apellidom,
+                ApellidoMaterno= apellidom,
+                FechaNacimiento = fecha_nac,
+                RFC = rfc,
+                UsuarioAgrega = 1
+            };
+            using (var httpClinte = new HttpClient())
+            {
+                var respuesta = await httpClinte.PostAsJsonAsync(base_url + "api/personafisica", persona);
+
+                if(respuesta.IsSuccessStatusCode)
+                {
+                    string mensaje = await respuesta.Content.ReadAsStringAsync();
+                    dynamic msj_json = JObject.Parse(mensaje);
+                    ViewData["Mensaje"] = msj_json.MENSAJEERROR;
+                    ViewData["Codigo"] = msj_json.ERROR;
+                }
+            }
+            return View("CrearPersonaFisica");
         }
 
        public ActionResult CrearPersonaFisica()

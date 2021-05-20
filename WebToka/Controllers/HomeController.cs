@@ -16,6 +16,7 @@ namespace WebToka.Controllers
         public async Task<ActionResult> Index(int pagina = 1)
         {
             var httpClient = new HttpClient();
+
             var json = await httpClient.GetStringAsync("http://localhost:8080/api/personasfisicas");
 
             var personas = JsonConvert.DeserializeObject<List<PersonaFisica>>(json);
@@ -52,12 +53,16 @@ namespace WebToka.Controllers
 
             return View();
         }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+       public ActionResult CrearPersonaFisica()
+        {
+            return View();
+        }
     }
-    public class Account
-    {
-        public string Email { get; set; }
-        public bool Active { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public IList<string> Roles { get; set; }
-    }
+
 }

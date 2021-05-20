@@ -7,11 +7,20 @@
 
 <div class="row">
     <div class="col-md-12">
+        <p>Registros por pagina: @Model.RegistroPorPagina </p>
+        <a href="@Url.Action("CrearPersonaFisica", "Home")" class="btn btn-primary">Crear</a>
        <table class="table table-striped">
            <thead>
                <tr>
                    <th>Id</th>
+                   <th>Fecha Registro</th>
+                   <th>Fecha Actualizacion</th>
                    <th>Nombre</th>
+                   <th>Apellido Paterno</th>
+                   <th>Apellido Materno</th>
+                   <th>RFC</th>
+                   <th>Fecha Nacimiento</th>
+                   <th>Acciones</th>
                </tr>          
            </thead>
            <tbody>
@@ -19,7 +28,27 @@
                {
                <tr>
                    <td>@persona.IdPersonaFisica</td>
+                   <td>@persona.FechaRegistro</td>
+                   <td>@persona.FechaActualizacion</td>
                    <td>@persona.Nombre</td>
+                   <td>@persona.ApellidoPaterno</td>
+                   <td>@persona.ApellidoMaterno</td>
+                   <td>@persona.RFC</td>
+                   <td>@persona.FechaNacimiento</td>
+                   <td>
+                       <a href="@Url.Action("Edit", "Home")" class="btn btn-primary">
+                           <i class="fas fa-edit"></i>
+                           <span>
+                               <strong>Editar</strong>
+                           </span>
+                       </a> 
+                       <a href="@Url.Action("Delete", "Home")" class="btn btn-danger">
+                           <i class="fas fa-trash"></i>
+                           <span>
+                               <strong>Borrar</strong>
+                           </span>
+                       </a>
+                   </td>
                </tr>
                 }
                <tr>

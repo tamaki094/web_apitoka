@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Agregar Persona Fisica";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>@ViewBag.Title</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <form>
+            <div class="form-group">
+                <label for="txtNombre">Nombre</label>
+                <input type="text" class="form-control" id="txtNombre" name="txtNombre" placeholder="Nombres">
+            </div>
+            <div class="form-group">
+                <label for="txtApellidoP">Apellido Paterno</label>
+                <input type="text" class="form-control" id="txtApellidoP" name="txtApellidoP" placeholder="Apellido Paterno">
+            </div>
+
+            <div class="form-group">
+                <label for="txtApellidoM">Apellido Materno</label>
+                <input type="text" class="form-control" id="txtApellidoM" name="txtApellidoM" placeholder="Apellido Materno">
+            </div>
+
+            <div class="form-group">
+                <label for="txtFechaNac">Fecha Nacimiento</label>
+                <input type="date" class="form-control" id="txtFechaNac" name="txtFechaNac" placeholder="Fecha Nacimiento">
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+</div>
